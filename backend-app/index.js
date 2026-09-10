@@ -51,3 +51,52 @@ app.post('/posts', async ( req, res ) => {
 
     }
 });
+
+app.put('/posts/like/:id', async ( req, res ) => {
+    try {
+        const { id } = req.params;
+
+        const isValidId = /^\d+$/.test( id );
+
+        if ( !id || !isValidId ) {
+            return res.status(400).json({
+                message: "El id ingresado no es válido"
+            });
+        }
+
+        const response = await postModel.likePostById( id );
+        return res.status(200).json(response);
+
+    } catch (error) {
+       
+        console.log(error);
+        return res.status(500).json({
+            message: "Error interno del servidor."
+        });
+
+    }
+});
+
+app.delete('/posts/:id', async ( req, res ) => {
+    try {
+        const { id } = req.params;
+
+        const isValidId = /^\d+$/.test( id );
+
+        if ( !id || !isValidId ) {
+            return res.status(400).json({
+                message: "El id ingresado no es válido"
+            });
+        }
+
+        const response = await postModel.removePostById( id );
+        return res.status(200).json(response);   
+    } catch (error) {
+               
+        console.log(error);
+        return res.status(500).json({
+            message: "Error interno del servidor."
+        });
+
+    }
+});
