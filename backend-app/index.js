@@ -70,9 +70,7 @@ app.put('/posts/like/:id', async ( req, res ) => {
     } catch (error) {
        
         console.log(error);
-        return res.status(500).json({
-            message: "Error interno del servidor."
-        });
+        return res.status(error.code).json({ message: error.message });
 
     }
 });
@@ -94,9 +92,7 @@ app.delete('/posts/:id', async ( req, res ) => {
     } catch (error) {
                
         console.log(error);
-        return res.status(500).json({
-            message: "Error interno del servidor."
-        });
+        return res.status(error.code).json({message: error.message});
 
     }
 });
